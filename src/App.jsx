@@ -44,20 +44,29 @@ function App() {
         `}
       </style>
 
-      <div className="fixed w-full top-6 z-50 px-4">
-        <nav className="max-w-7xl w-full mx-auto backdrop-blur-xl bg-white/80 border border-gray-200/80 shadow-xl shadow-gray-200/50 rounded-[2rem] h-20 flex justify-between items-center px-8 transition-all">
-          <a href="#home" className="font-black text-3xl tracking-tighter text-gray-900">
+      {/* NAVBAR AGGIORNATA PER MOBILE */}
+      <div className="fixed w-full top-4 md:top-6 z-50 px-4">
+        <nav className="max-w-7xl w-full mx-auto backdrop-blur-xl bg-white/80 border border-gray-200/80 shadow-xl shadow-gray-200/50 rounded-3xl md:rounded-[2rem] h-16 md:h-20 flex justify-between items-center px-6 md:px-8 transition-all">
+          <a href="#home" className="font-black text-2xl md:text-3xl tracking-tighter text-gray-900">
             MG<span className="text-blue-600">.</span>
           </a>
+          
+          {/* Link visibili solo da tablet in su */}
           <div className="hidden md:flex space-x-8 text-sm font-bold uppercase tracking-widest text-gray-500">
             <a href="#home" className="hover:text-blue-600 transition-colors">Home</a>
             <a href="#about" className="hover:text-blue-600 transition-colors">Chi Sono</a>
             <a href="#projects" className="hover:text-blue-600 transition-colors">Progetti</a>
             <a href="#contact" className="hover:text-blue-600 transition-colors">Contatti</a>
           </div>
+
+          {/* Bottone "Contatti" rapido visibile SOLO su mobile */}
+          <a href="#contact" className="md:hidden flex items-center justify-center w-10 h-10 bg-blue-50 text-blue-600 rounded-full border border-blue-100 active:bg-blue-100 transition-colors">
+            <IoMail size={20} />
+          </a>
         </nav>
       </div>
 
+      {/* Tutta la Hero Section e le sezioni successive (invariate) */}
       <section id="home" className="pt-32 pb-20 min-h-[90vh] flex items-center">
         <div className="max-w-7xl mx-auto px-6 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -194,14 +203,12 @@ function App() {
             </div>
           </div>
           
-          {/* Su mobile flex-col (verticale), su schermi medi in poi ripristina il flex-row col carosello */}
           <div 
             ref={carouselRef}
             className="flex flex-col md:flex-row md:overflow-x-auto gap-8 md:pb-8 md:snap-x md:snap-mandatory hide-scrollbar items-stretch"
           >
             {projects.length > 0 ? (
               projects.map((repo) => (
-                // Su mobile la card occupa il 100% della larghezza (w-full), su desktop ha una larghezza fissa (md:w-[400px] lg:w-[480px])
                 <div key={repo.id} className="group w-full md:flex-none md:w-[400px] lg:w-[480px] md:snap-start flex flex-col h-auto">
                   <div className="aspect-[4/3] bg-white rounded-[2rem] mb-8 overflow-hidden relative shadow-sm border border-gray-200 shrink-0">
                     <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/5 transition-all duration-500"></div>
