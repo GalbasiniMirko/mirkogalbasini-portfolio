@@ -95,7 +95,7 @@ function App() {
                 <a href="#contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-2xl font-bold hover:bg-blue-700 transition-all shadow-xl shadow-blue-200">
                   Contattami <FiArrowRight size={20} />
                 </a>
-                <a href="/tuo-cv.pdf" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-blue-600 border border-gray-200 rounded-2xl font-bold hover:bg-gray-50 transition-all shadow-sm">
+                <a href="/PrimaBozzaCV.pdf" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-blue-600 border border-gray-200 rounded-2xl font-bold hover:bg-gray-50 transition-all shadow-sm">
                   <FaFilePdf size={18} /> Scarica CV
                 </a>
               </div>
@@ -194,13 +194,15 @@ function App() {
             </div>
           </div>
           
+          {/* Su mobile flex-col (verticale), su schermi medi in poi ripristina il flex-row col carosello */}
           <div 
             ref={carouselRef}
-            className="flex overflow-x-auto gap-8 pb-8 snap-x snap-mandatory hide-scrollbar"
+            className="flex flex-col md:flex-row md:overflow-x-auto gap-8 md:pb-8 md:snap-x md:snap-mandatory hide-scrollbar items-stretch"
           >
             {projects.length > 0 ? (
               projects.map((repo) => (
-                <div key={repo.id} className="group flex-none w-[85vw] sm:w-[60vw] lg:w-[480px] snap-start flex flex-col">
+                // Su mobile la card occupa il 100% della larghezza (w-full), su desktop ha una larghezza fissa (md:w-[400px] lg:w-[480px])
+                <div key={repo.id} className="group w-full md:flex-none md:w-[400px] lg:w-[480px] md:snap-start flex flex-col h-auto">
                   <div className="aspect-[4/3] bg-white rounded-[2rem] mb-8 overflow-hidden relative shadow-sm border border-gray-200 shrink-0">
                     <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/5 transition-all duration-500"></div>
                     
@@ -226,15 +228,16 @@ function App() {
                   <p className="text-gray-500 mb-6 text-lg line-clamp-2">
                     {repo.description || "Nessuna descrizione fornita per questo progetto."}
                   </p>
+                  <div className="mt-auto pt-4"></div>
                 </div>
               ))
             ) : (
               [1, 2, 3].map((i) => (
-                <div key={i} className="group flex-none w-[85vw] sm:w-[60vw] lg:w-[480px] snap-start animate-pulse">
-                  <div className="aspect-[4/3] bg-gray-200 rounded-[2rem] mb-8 shadow-sm border border-gray-100"></div>
+                <div key={i} className="group w-full md:flex-none md:w-[400px] lg:w-[480px] md:snap-start animate-pulse flex flex-col h-auto">
+                  <div className="aspect-[4/3] bg-gray-200 rounded-[2rem] mb-8 shadow-sm border border-gray-100 shrink-0"></div>
                   <div className="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
                   <div className="h-6 bg-gray-200 rounded w-full mb-6"></div>
-                  <div className="flex gap-4">
+                  <div className="flex gap-4 mt-auto">
                     <div className="h-5 bg-gray-200 rounded w-20"></div>
                     <div className="h-5 bg-gray-200 rounded w-24"></div>
                   </div>
@@ -243,10 +246,25 @@ function App() {
             )}
 
             {projects.length > 0 && (
-              <div className="flex-none w-[85vw] sm:w-[60vw] lg:w-[480px] snap-start flex flex-col">
-                <a href="https://github.com/galbasinimirko" target="_blank" rel="noreferrer" className="flex flex-col items-center justify-center w-full h-full min-h-[350px] rounded-[2rem] border-4 border-dashed border-gray-300 hover:border-blue-600 hover:bg-blue-50 transition-all group cursor-pointer text-gray-400 hover:text-blue-600 p-8 text-center">
-                  <FaGithub size={56} className="mb-6 group-hover:scale-110 transition-transform" />
-                  <span className="text-2xl font-black uppercase tracking-widest leading-tight">Visita il mio <br/>Profilo</span>
+              <div className="w-full md:flex-none md:w-[400px] lg:w-[480px] md:snap-start flex flex-col h-auto">
+                <a href="https://github.com/galbasinimirko" target="_blank" rel="noreferrer" className="relative flex flex-col items-center justify-center w-full h-full min-h-[350px] rounded-[2rem] bg-blue-50 border border-blue-100 overflow-hidden group shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500">
+                  
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-100/50 to-indigo-100/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  
+                  <div className="absolute -top-12 -right-12 w-48 h-48 bg-blue-300 rounded-full blur-[3rem] opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
+                  <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-indigo-300 rounded-full blur-[3rem] opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
+                  
+                  <div className="relative z-10 flex flex-col items-center transform transition-transform duration-500 p-8">
+                    <div className="p-6 bg-white text-blue-600 rounded-full mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500 shadow-sm group-hover:shadow-md group-hover:scale-110">
+                      <FaGithub size={48} />
+                    </div>
+                    <span className="text-2xl font-black uppercase tracking-widest leading-tight text-center mb-6 text-gray-800">
+                      Scopri gli altri <br/>Progetti
+                    </span>
+                    <span className="flex items-center gap-2 text-sm font-bold text-blue-600 uppercase tracking-widest bg-white px-5 py-3 rounded-full shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+                      Vai al profilo <FiArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
+                    </span>
+                  </div>
                 </a>
               </div>
             )}
@@ -315,7 +333,7 @@ function App() {
             <div className="flex flex-wrap justify-center gap-8">
                <a href="https://www.linkedin.com/in/mirko-galbasini-b96768272" target="_blank" rel="noreferrer" className="text-sm font-bold text-gray-400 hover:text-blue-400 transition-colors uppercase tracking-widest">Linkedin</a>
                <a href="https://github.com/galbasinimirko" target="_blank" rel="noreferrer" className="text-sm font-bold text-gray-400 hover:text-blue-400 transition-colors uppercase tracking-widest">Github</a>
-               <a href="/tuo-cv.pdf" target="_blank" rel="noreferrer" className="text-sm font-bold text-blue-500 hover:text-blue-400 transition-colors uppercase tracking-widest">Scarica CV (PDF)</a>
+               <a href="/PrimaBozzaCV.pdf" target="_blank" rel="noreferrer" className="text-sm font-bold text-blue-500 hover:text-blue-400 transition-colors uppercase tracking-widest">Scarica CV (PDF)</a>
             </div>
           </div>
         </div>
